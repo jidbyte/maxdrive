@@ -1,0 +1,200 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where([data-theme="dark"] *));
+
+:root {
+  /* Base */
+  --surface: #ffffff; /* page background */
+  --surface-2: #f1f6fe; /* subtle fills: image wells, hover rows, tab tracks */
+  --card: #ffffff; /* raised panels */
+  --ink: #0a1325; /* primary text */
+  --neutral: #5d6a80; /* secondary text */
+  --muted: #c3cddb; /* low-emphasis fills (used at /30–/60 opacity) */
+
+  /* Brand */
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --primary-soft: #e8f0fe; /* tinted badge / active nav background */
+  --secondary: #7dd3fc;
+  --accent: #dbeafe;
+  --solid: #1e3a8a;
+
+  /* States */
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #2563eb;
+
+  /* UI */
+  --border: #e5ecf6;
+  --input: #dbe3ef;
+  --ring: #2563eb;
+  --overlay: #0a1325;
+
+  /* Depth & ambience */
+  --elev-card: 0 1px 2px rgba(10, 19, 37, 0.04), 0 20px 40px -24px rgba(37, 99, 235, 0.25);
+  --elev-pop: 0 24px 60px -20px rgba(10, 19, 37, 0.25);
+  --glow-1: rgba(37, 99, 235, 0.12);
+  --glow-2: rgba(125, 211, 252, 0.18);
+}
+
+[data-theme="dark"] {
+  /* Base */
+  --surface: #000000;
+  --surface-2: #111a26;
+  --card: #0a0f17;
+  --ink: #f4f8ff;
+  --neutral: #8b98ab;
+  --muted: #3a4658;
+
+  /* Brand */
+  --primary: #38bdf8;
+  --primary-foreground: #001726;
+  --primary-soft: #0b2233;
+  --secondary: #2563eb;
+  --accent: #0c2a3d;
+  --solid: #dbeafe;
+
+  /* States */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #60a5fa;
+
+  /* UI */
+  --border: #18222f;
+  --input: #223043;
+  --ring: #38bdf8;
+  --overlay: #000000;
+
+  /* Depth & ambience */
+  --elev-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 24px 48px -24px rgba(0, 0, 0, 0.9);
+  --elev-pop: 0 24px 60px -16px rgba(0, 0, 0, 0.95);
+  --glow-1: rgba(56, 189, 248, 0.22);
+  --glow-2: rgba(37, 99, 235, 0.18);
+}
+
+@theme inline {
+  /* Typography */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* Base */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-neutral: var(--neutral);
+
+  /* Brand */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-solid: var(--solid);
+
+  /* States */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  /* UI */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+
+  /* shadcn-style aliases. Many components already use these names; they
+     were previously undefined and rendered without colour. */
+  --color-background: var(--surface);
+  --color-foreground: var(--ink);
+  --color-card-foreground: var(--ink);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--ink);
+  --color-muted-foreground: var(--neutral);
+  --color-accent-foreground: var(--solid);
+  --color-secondary-foreground: var(--ink);
+  --color-destructive: var(--danger);
+
+  /* Radius — Horizon uses generous rounding */
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem; /* inputs, small panels */
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem; /* cards */
+  --radius-2xl: 2rem;
+
+  /* Shadows */
+  --shadow-card: var(--elev-card);
+  --shadow-pop: var(--elev-pop);
+
+  --animate-marquee: marquee 30s linear infinite;
+  /* Slow, shallow "breathing" for loading skeletons (gentler than animate-pulse). */
+  --animate-skeleton: skeleton-breathe 2.8s ease-in-out infinite;
+
+  @keyframes skeleton-breathe {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(var(--marquee-end, -50%));
+    }
+  }
+}
+
+/* Ambient Horizon gradient for hero / feature sections. */
+@utility bg-horizon {
+  background-image:
+    radial-gradient(700px 420px at 85% 30%, var(--glow-1), transparent 65%),
+    radial-gradient(500px 300px at 10% 110%, var(--glow-2), transparent 70%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-surface font-sans text-ink antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.03em;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+node_modules
+.next
+dist
+_backup
+package-lock.json
+src/shared/db/migrations
+design/*.html
+*.min.*
