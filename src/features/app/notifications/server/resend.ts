@@ -16,7 +16,7 @@ export function getResendClient(): Resend {
   return client;
 }
 
-/** "MAXDRIVE <orders@maxdrive.com>" — address must be on a Resend-verified domain. */
+/** "<displayName> <RESEND_FROM_EMAIL>" — address must be on a Resend-verified domain. */
 export function fromAddress(displayName: string = siteConfig.name): string {
   const address = process.env.RESEND_FROM_EMAIL || "orders@resend.dev";
   return `${displayName} <${address}>`;
